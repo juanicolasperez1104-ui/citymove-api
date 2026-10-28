@@ -1,0 +1,13 @@
+[
+ {"cod_dpto":"05","dpto":"ANTIOQUIA","cod_mpio":"05001","nom_mpio":"MEDELLÍN","tipo_municipio":"Municipio","longitud":"-75,56","latitud":"6,25"},
+ {"cod_dpto":"05","dpto":"ANTIOQUIA","cod_mpio":"05002","nom_mpio":"ABEJORRAL","tipo_municipio":"Municipio","longitud":"-75,43","latitud":"5,79"},
+ {"cod_dpto":"05","dpto":"ANTIOQUIA","cod_mpio":"05004","nom_mpio":"ABRIAQUÍ","tipo_municipio":"Municipio","longitud":"-76,06","latitud":"6,63"},
+ {"cod_dpto":"11","dpto":"BOGOTÁ, D.C.","cod_mpio":"11001","nom_mpio":"BOGOTÁ, D.C.","tipo_municipio":"Municipio","longitud":"-74,10","latitud":"4,65"},
+ {"cod_dpto":"68","dpto":"SANTANDER","cod_mpio":"68001","nom_mpio":"BUCARAMANGA","tipo_municipio":"Municipio","longitud":"-73,12","latitud":"7,12"},
+ {"cod_dpto":"68","dpto":"SANTANDER","cod_mpio":"68081","nom_mpio":"BARRANCABERMEJA","tipo_municipio":"Municipio","longitud":"-73,85","latitud":"7,06"},
+ {"cod_dpto":"85","dpto":"CASANARE","cod_mpio":"85001","nom_mpio":"YOPAL","tipo_municipio":"Municipio","longitud":"-72,39","latitud":"5,34"},
+ {"cod_dpto":"91","dpto":"AMAZONAS","cod_mpio":"91001","nom_mpio":"LETICIA","tipo_municipio":"Municipio","longitud":"-69,94","latitud":"-4,20"},
+ {"cod_dpto":"91","dpto":"AMAZONAS","cod_mpio":"91263","nom_mpio":"EL ENCANTO","tipo_municipio":"Área no municipalizada","longitud":"-73,21","latitud":"-1,75"},
+ {"cod_dpto":"94","dpto":"GUAINÍA","cod_mpio":"94343","nom_mpio":"BARRANCOMINAS","tipo_municipio":"Área no municipalizada","longitud":"-69,81","latitud":"3,49"},
+ {"cod_dpto":"88","dpto":"ARCHIPIÉLAGO DE SAN ANDRÉS, PROVIDENCIA Y SANTA CATALINA","cod_mpio":"88564","nom_mpio":"PROVIDENCIA","tipo_municipio":"Isla","longitud":"-81,37","latitud":"13,35"}
+]

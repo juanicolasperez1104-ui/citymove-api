@@ -1,0 +1,120 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.3.4, pluggy-1.7.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/claude/citymove-api
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.15.1, cov-6.0.0
+collecting ... collected 60 items
+
+tests/api/test_api.py::test_crud_flow PASSED                             [  1%]
+tests/api/test_api.py::test_unknown_municipality_is_rejected PASSED      [  3%]
+tests/api/test_api.py::test_report_is_kept_when_divipola_is_down PASSED  [  5%]
+tests/api/test_api.py::test_invalid_transition_returns_409 PASSED        [  6%]
+tests/api/test_api.py::test_validation_and_empty_update PASSED           [  8%]
+tests/api/test_api.py::test_open_data_refresh_and_analytics PASSED       [ 10%]
+tests/api/test_api.py::test_municipality_lookup_and_outage PASSED        [ 11%]
+tests/api/test_api.py::test_dashboard_and_breaker_health PASSED          [ 13%]
+tests/api/test_api.py::test_openapi_documents_all_operations PASSED      [ 15%]
+tests/application/test_open_data_service.py::test_refresh_loads_municipalities_then_reports PASSED [ 16%]
+tests/application/test_open_data_service.py::test_refresh_fails_fast_when_divipola_is_down PASSED [ 18%]
+tests/application/test_open_data_service.py::test_missing_provenance_does_not_break_refresh PASSED [ 20%]
+tests/application/test_report_service.py::test_create_marks_report_as_verified_when_code_exists PASSED [ 21%]
+tests/application/test_report_service.py::test_create_rejects_unknown_code_and_never_persists PASSED [ 23%]
+tests/application/test_report_service.py::test_create_degrades_gracefully_when_open_data_is_down PASSED [ 25%]
+tests/application/test_report_service.py::test_create_without_code_does_not_call_territory PASSED [ 26%]
+tests/application/test_report_service.py::test_get_missing_report_raises PASSED [ 28%]
+tests/application/test_report_service.py::test_delete_missing_report_raises PASSED [ 30%]
+tests/application/test_report_service.py::test_update_with_new_code_is_verified_again PASSED [ 31%]
+tests/domain/test_architecture.py::test_inner_layers_do_not_depend_on_outer_layers[application] PASSED [ 33%]
+tests/domain/test_architecture.py::test_inner_layers_do_not_depend_on_outer_layers[domain] PASSED [ 35%]
+tests/domain/test_architecture.py::test_four_layers_exist PASSED         [ 36%]
+tests/domain/test_report_model.py::test_valid_report_starts_open_and_unverified PASSED [ 38%]
+tests/domain/test_report_model.py::test_invariants_are_enforced[title-abc] PASSED [ 40%]
+tests/domain/test_report_model.py::test_invariants_are_enforced[latitude-95.0] PASSED [ 41%]
+tests/domain/test_report_model.py::test_invariants_are_enforced[longitude--200.0] PASSED [ 43%]
+tests/domain/test_report_model.py::test_invariants_are_enforced[municipality_code-1100] PASSED [ 45%]
+tests/domain/test_report_model.py::test_allowed_lifecycle PASSED         [ 46%]
+tests/domain/test_report_model.py::test_forbidden_transitions[open-resolved] PASSED [ 48%]
+tests/domain/test_report_model.py::test_forbidden_transitions[resolved-open] PASSED [ 50%]
+tests/domain/test_report_model.py::test_forbidden_transitions[rejected-in_progress] PASSED [ 51%]
+tests/infrastructure/test_circuit_breaker.py::test_closed_to_open_after_threshold PASSED [ 53%]
+tests/infrastructure/test_circuit_breaker.py::test_open_fails_fast_without_calling_the_dependency PASSED [ 55%]
+tests/infrastructure/test_circuit_breaker.py::test_open_to_half_open_to_closed PASSED [ 56%]
+tests/infrastructure/test_circuit_breaker.py::test_failure_in_half_open_reopens PASSED [ 58%]
+tests/infrastructure/test_circuit_breaker.py::test_half_open_allows_a_single_trial_call PASSED [ 60%]
+tests/infrastructure/test_circuit_breaker.py::test_success_resets_the_failure_counter PASSED [ 61%]
+tests/infrastructure/test_circuit_breaker.py::test_errors_marked_as_neutral_do_not_open_the_circuit PASSED [ 63%]
+tests/infrastructure/test_duckdb_analytics.py::test_loads_raw_json_with_read_json PASSED [ 65%]
+tests/infrastructure/test_duckdb_analytics.py::test_query1_municipalities_by_department PASSED [ 66%]
+tests/infrastructure/test_duckdb_analytics.py::test_query2_descriptive_statistics_by_kind PASSED [ 68%]
+tests/infrastructure/test_duckdb_analytics.py::test_query3_joins_reports_with_divipola PASSED [ 70%]
+tests/infrastructure/test_open_data_adapters.py::test_parses_decimal_comma_and_sends_limit PASSED [ 71%]
+tests/infrastructure/test_open_data_adapters.py::test_parse_coordinate[-73,308399--73.308399] PASSED [ 73%]
+tests/infrastructure/test_open_data_adapters.py::test_parse_coordinate[4.5-4.5] PASSED [ 75%]
+tests/infrastructure/test_open_data_adapters.py::test_parse_coordinate[-None] PASSED [ 76%]
+tests/infrastructure/test_open_data_adapters.py::test_parse_coordinate[None-None] PASSED [ 78%]
+tests/infrastructure/test_open_data_adapters.py::test_parse_coordinate[n/a-None] PASSED [ 80%]
+tests/infrastructure/test_open_data_adapters.py::test_transient_503_is_retried_until_success PASSED [ 81%]
+tests/infrastructure/test_open_data_adapters.py::test_404_is_not_retried_and_does_not_open_circuit PASSED [ 83%]
+tests/infrastructure/test_open_data_adapters.py::test_repeated_timeouts_open_the_circuit_and_then_fail_fast PASSED [ 85%]
+tests/infrastructure/test_open_data_adapters.py::test_non_json_body_counts_as_failure_but_is_not_retried PASSED [ 86%]
+tests/infrastructure/test_open_data_adapters.py::test_stale_cache_is_served_when_source_goes_down PASSED [ 88%]
+tests/infrastructure/test_open_data_adapters.py::test_catalog_metadata_is_parsed PASSED [ 90%]
+tests/infrastructure/test_retry.py::test_retries_transient_errors_with_exponential_backoff PASSED [ 91%]
+tests/infrastructure/test_retry.py::test_backoff_is_capped PASSED        [ 93%]
+tests/infrastructure/test_retry.py::test_full_jitter_stays_within_ceiling PASSED [ 95%]
+tests/infrastructure/test_retry.py::test_permanent_errors_are_not_retried PASSED [ 96%]
+tests/infrastructure/test_retry.py::test_gives_up_after_max_attempts PASSED [ 98%]
+tests/infrastructure/test_retry.py::test_retry_after_header_is_respected_but_capped PASSED [100%]
+
+---------- coverage: platform linux, python 3.12.3-final-0 -----------
+Name                                                             Stmts   Miss  Cover   Missing
+----------------------------------------------------------------------------------------------
+app/__init__.py                                                      0      0   100%
+app/api/__init__.py                                                  0      0   100%
+app/api/container.py                                                43     18    58%   39-62
+app/api/deps.py                                                      4      0   100%
+app/api/errors.py                                                   39      4    90%   36-37, 57-58
+app/api/routers/__init__.py                                          0      0   100%
+app/api/routers/dashboard.py                                        37      3    92%   18, 50-51
+app/api/routers/open_data.py                                        30      0   100%
+app/api/routers/reports.py                                          29      0   100%
+app/api/schemas.py                                                  49      0   100%
+app/application/__init__.py                                          0      0   100%
+app/application/open_data_service.py                                39      0   100%
+app/application/ports.py                                             6      0   100%
+app/application/report_service.py                                   41      0   100%
+app/domain/__init__.py                                               0      0   100%
+app/domain/opendata/__init__.py                                      0      0   100%
+app/domain/opendata/model.py                                        11      0   100%
+app/domain/opendata/ports.py                                         4      0   100%
+app/domain/reports/__init__.py                                       0      0   100%
+app/domain/reports/errors.py                                        17      0   100%
+app/domain/reports/model.py                                         56      1    98%   70
+app/domain/reports/ports.py                                          6      0   100%
+app/domain/shared/__init__.py                                        0      0   100%
+app/domain/shared/errors.py                                          7      0   100%
+app/domain/territory/__init__.py                                     0      0   100%
+app/domain/territory/model.py                                       16      2    88%   19, 21
+app/domain/territory/ports.py                                        4      0   100%
+app/infrastructure/__init__.py                                       0      0   100%
+app/infrastructure/analytics/__init__.py                             0      0   100%
+app/infrastructure/analytics/duckdb_analytics.py                    42      0   100%
+app/infrastructure/opendata/__init__.py                              0      0   100%
+app/infrastructure/opendata/catalog_adapter.py                      22      1    95%   30
+app/infrastructure/opendata/divipola_adapter.py                     50      5    90%   59, 65, 67, 75, 78
+app/infrastructure/persistence/__init__.py                           0      0   100%
+app/infrastructure/persistence/database.py                          14      0   100%
+app/infrastructure/persistence/orm.py                               19      0   100%
+app/infrastructure/persistence/sqlalchemy_report_repository.py      56      2    96%   58, 76
+app/infrastructure/resilience/__init__.py                            0      0   100%
+app/infrastructure/resilience/circuit_breaker.py                    86      3    97%   36, 58, 110
+app/infrastructure/resilience/http_client.py                        48      4    92%   43-44, 59-60
+app/infrastructure/resilience/retry.py                              35      1    97%   51
+app/main.py                                                         16      1    94%   23
+----------------------------------------------------------------------------------------------
+TOTAL                                                              826     45    95%
+
+
+============================== 60 passed in 2.62s ==============================

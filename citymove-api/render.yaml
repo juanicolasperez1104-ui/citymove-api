@@ -6,7 +6,7 @@ services:
     runtime: image
     plan: free
     image:
-      url: docker.io/DOCKERHUB_USERNAME/citymove-api:latest
+      url: docker.io/nicolasperez11/citymove-api:latest
     healthCheckPath: /health
     envVars:
       - key: DATABASE_URL

@@ -14,7 +14,7 @@ CityMove is a REST API where citizens report urban-infrastructure problems such 
 
 This repository is the semester project of the **Programming Workshop** course (Software Engineering, Universidad Manuela Beltrán, 2026-2). It grew guide by guide: a CRUD API with uniform error handling, an AI triage prototype, a hexagonal architecture with open-data adapters and resilience patterns, quality and security hardening, and finally a cloud-native deployment.
 
-**Live API:** see the `RENDER_APP_URL` in the deployment environment of this repository (`/docs` opens the interactive Swagger UI).
+**Live API:** https://citymove-api.onrender.com (Swagger UI at [/docs](https://citymove-api.onrender.com/docs)) · **Docker image:** [nicolasperez11/citymove-api](https://hub.docker.com/r/nicolasperez11/citymove-api)
 
 ## Architecture
 

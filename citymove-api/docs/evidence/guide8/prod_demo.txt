@@ -1,0 +1,21 @@
+$ curl -s https://citymove-api.onrender.com/health
+{"status":"ok","version":"1.0.0"}
+
+$ curl -s -X POST https://citymove-api.onrender.com/api/v1/auth/register -d '{"username":"demo2092",...}'
+{"id":2,"username":"demo2092","role":"USER"}
+
+$ curl -s -X POST /api/v1/auth/login  ->  TOKEN
+TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...
+
+$ curl -s /api/v1/users/me -H "Authorization: Bearer $TOKEN"
+{"id":2,"username":"demo2092","role":"USER"}
+
+$ curl -s -X POST /api/v1/reports (sin token)
+HTTP 401
+
+$ curl -s -X POST /api/v1/reports -H "Authorization: Bearer $TOKEN"
+{"id":1,"title":"Pothole on Av. Boyaca","description":"A cyclist fell into it yesterday","category":"pothole","address":"Av. Boyaca con calle 80","latitude":4.69,"longitude":-74.09,"municipality_code"
+
+
+$ curl -s -X DELETE /api/v1/reports/1 -H "Authorization: Bearer $TOKEN"
+{"status":403,"error":"Forbidden","detail":"Requires role: ADMIN","path":"/api/v1/reports/1"}

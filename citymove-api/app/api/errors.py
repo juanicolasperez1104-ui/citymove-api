@@ -12,6 +12,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.domain.reports.errors import (InvalidReport, InvalidStatusTransition,
                                        ReportNotFound, UnknownMunicipality)
 from app.domain.shared.errors import ExternalDataUnavailable
+from app.domain.users.errors import AuthError, Forbidden, UsernameTaken
 
 log = logging.getLogger(__name__)
 
@@ -30,6 +31,13 @@ def register_error_handlers(app: FastAPI) -> None:
     app.add_exception_handler(ReportNotFound, simple(404))
     app.add_exception_handler(InvalidStatusTransition, simple(409))
     app.add_exception_handler(UnknownMunicipality, simple(422))
+    app.add_exception_handler(Forbidden, simple(403))
+    app.add_exception_handler(UsernameTaken, simple(409))
+
+    @app.exception_handler(AuthError)
+    async def unauthorized(request: Request, exc: AuthError):
+        return JSONResponse(_body(401, str(exc), request), status_code=401,
+                            headers={"WWW-Authenticate": "Bearer"})
 
     @app.exception_handler(InvalidReport)
     async def invalid_report(request: Request, exc: InvalidReport):

@@ -1,0 +1,25 @@
+app/domain/users/model.py                                           12      0   100%
+app/domain/users/ports.py                                            4      0   100%
+app/infrastructure/__init__.py                                       0      0   100%
+app/infrastructure/analytics/__init__.py                             0      0   100%
+app/infrastructure/analytics/duckdb_analytics.py                    42      0   100%
+app/infrastructure/opendata/__init__.py                              0      0   100%
+app/infrastructure/opendata/catalog_adapter.py                      22      1    95%
+app/infrastructure/opendata/divipola_adapter.py                     50      5    90%
+app/infrastructure/persistence/__init__.py                           0      0   100%
+app/infrastructure/persistence/database.py                          20      3    85%
+app/infrastructure/persistence/orm.py                               25      0   100%
+app/infrastructure/persistence/sqlalchemy_report_repository.py      56      2    96%
+app/infrastructure/persistence/user_repositories.py                 40      1    98%
+app/infrastructure/resilience/__init__.py                            0      0   100%
+app/infrastructure/resilience/circuit_breaker.py                    86      3    97%
+app/infrastructure/resilience/http_client.py                        48      4    92%
+app/infrastructure/resilience/retry.py                              35      1    97%
+app/infrastructure/security/__init__.py                              0      0   100%
+app/infrastructure/security/passwords.py                            23      0   100%
+app/infrastructure/security/tokens.py                               24      0   100%
+app/main.py                                                         25      0   100%
+------------------------------------------------------------------------------------
+TOTAL                                                             1074     59    95%
+
+71 passed in 2.66s

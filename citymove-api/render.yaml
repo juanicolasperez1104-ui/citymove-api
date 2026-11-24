@@ -1,0 +1,26 @@
+# Render Blueprint: image-backed web service + managed PostgreSQL (free plans).
+# The CI/CD pipeline pushes the image to Docker Hub and calls the deploy hook.
+services:
+  - type: web
+    name: citymove-api
+    runtime: image
+    plan: free
+    image:
+      url: docker.io/DOCKERHUB_USERNAME/citymove-api:latest
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: citymove-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false
+databases:
+  - name: citymove-db
+    plan: free
+    databaseName: citymove
+    user: citymove

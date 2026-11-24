@@ -1,0 +1,30 @@
+$ curl -s http://localhost:8000/health
+{"status":"ok","version":"1.0.0"}
+
+$ curl -s -X POST /api/v1/auth/register -d {"username":"maria",...}
+{"id":2,"username":"maria","role":"USER"}
+
+$ TOKEN_USER=$(curl -s -X POST /api/v1/auth/login -d username=maria&password=...)
+TOKEN_USER=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...
+
+# decoded JWT payload
+{"sub": "2", "username": "maria", "role": "USER", "iss": "citymove-api", "aud": "citymove-clients", "iat": 1795478063, "exp": 1795479863, "jti": "fd3fa6ddfe4f4391a679ad6dff7b4f02"}
+
+$ curl -s /api/v1/users/me -H "Authorization: Bearer $TOKEN_USER"
+{"id":2,"username":"maria","role":"USER"}
+
+$ curl -s -X POST /api/v1/reports (no token)
+HTTP 401
+
+$ curl -s -X POST /api/v1/reports -H "Authorization: Bearer $TOKEN_USER"
+{"id":1,"title":"Pothole on Av. Boyaca","description":"A cyclist fell into it yesterday","category":"pothole","address":"Av. Boyaca con calle 80","latitude":4.69,"longitude":-74.09,"municipality_code":null,"municipality_verified":false,"status":"open","priority":"high","created_at":"2026-11-23T23:54:23.961717Z"}
+
+$ curl -s -X DELETE /api/v1/reports/1 -H "Authorization: Bearer $TOKEN_USER"
+{"status":403,"error":"Forbidden","detail":"Requires role: ADMIN","path":"/api/v1/reports/1"}
+
+$ curl -s /api/v1/admin/users -H "Authorization: Bearer $TOKEN_ADMIN"
+[{"id":1,"username":"admin","role":"ADMIN"},{"id":2,"username":"maria","role":"USER"}]
+
+$ curl -s -I /health | grep -i x-
+x-content-type-options: nosniff
+x-frame-options: DENY

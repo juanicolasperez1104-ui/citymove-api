@@ -23,7 +23,12 @@ def setup(tmp_path, fake_territory):
     breaker = CircuitBreaker("dane-divipola")
     container = Container(repo, fake_territory, FakeCatalog(),
                           DuckDBAnalytics(snapshot_dir=tmp_path), [breaker])
-    return TestClient(create_app(container)), fake_territory
+    container.auth.ensure_admin("admin", "Admin-Pass-2026")
+    client = TestClient(create_app(container))
+    token = client.post("/api/v1/auth/login",
+                        data={"username": "admin", "password": "Admin-Pass-2026"}).json()["access_token"]
+    client.headers["Authorization"] = f"Bearer {token}"
+    return client, fake_territory
 
 
 def test_crud_flow(setup):

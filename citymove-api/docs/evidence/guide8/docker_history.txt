@@ -1,0 +1,14 @@
+SIZE      CREATED BY
+0B        CMD ["sh" "-c" "exec uvicorn app.main:create_app --factory --host 0.0.0.0 --port ${PORT} --proxy-headers --for
+0B        HEALTHCHECK {Test:[CMD-SHELL python -c "import os,urllib.request; urllib.request.urlopen(f'http://127.0.0.1:{o
+0B        EXPOSE 8000/tcp
+0B        USER app
+16.4kB    RUN /bin/sh -c mkdir -p /app/data/raw && chown -R app:app /app/data # buildkit
+238kB     COPY --chown=app:app app ./app # buildkit
+136MB     COPY /opt/venv /opt/venv # buildkit
+8.19kB    WORKDIR /app
+41kB      RUN /bin/sh -c groupadd --system --gid 10001 app  && useradd --system --uid 10001 --gid app --no-create-home -
+0B        ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PATH=/opt/venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/
+0B        LABEL org.opencontainers.image.title=citymove-api org.opencontainers.image.description=CityMove REST API - cit
+0B        CMD ["python3"]
+16.4kB    RUN /bin/sh -c set -eux;  for src in idle3 pip3 pydoc3 python3 python3-config; do   dst="$(echo "$src" | tr -d

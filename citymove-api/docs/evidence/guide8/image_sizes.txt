@@ -1,0 +1,9 @@
+$ docker image ls citymove-api
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+citymove-api:1.0.0   35bb09e5e782        356MB         85.8MB   U    
+citymove-api:naive   473c5ba72803       1.86GB          494MB        
+
+$ docker image inspect --format "{{.RepoTags}} user={{.Config.User}}"
+[citymove-api:naive] user=""
+[citymove-api:1.0.0 local/citymove-api:latest] user="app"
+naive image runs as: uid=0(root) gid=0(root) groups=0(root)

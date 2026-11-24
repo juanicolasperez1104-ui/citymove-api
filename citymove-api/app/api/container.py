@@ -16,6 +16,7 @@ from app.domain.opendata.ports import DatasetCatalogPort
 from app.domain.reports.ports import ReportRepository
 from app.domain.territory.ports import TerritorialDataPort
 from app.infrastructure.resilience.circuit_breaker import CircuitBreaker
+from app.application.auth_service import AuthService
 
 
 @dataclass
@@ -25,6 +26,17 @@ class Container:
     catalog: DatasetCatalogPort
     analytics: AnalyticsPort
     breakers: list[CircuitBreaker] = field(default_factory=list)
+    auth: AuthService | None = None
+
+    def __post_init__(self):
+        if self.auth is None:  # tests and local runs: in-memory users, random secret
+            import secrets
+            from app.infrastructure.persistence.user_repositories import InMemoryUserRepository
+            from app.infrastructure.security.passwords import Pbkdf2Hasher
+            from app.infrastructure.security.tokens import TokenService
+            self.auth = AuthService(InMemoryUserRepository(),
+                                    TokenService(os.getenv("JWT_SECRET") or secrets.token_urlsafe(48)),
+                                    Pbkdf2Hasher(iterations=1000))
 
     @property
     def report_service(self) -> ReportService:
@@ -58,7 +70,16 @@ def build_production_container() -> Container:
                                                        divipola_breaker, RetryPolicy(), headers))
     catalog = DatosGovCatalogAdapter(ResilientJsonClient("datos.gov.co catalog", http,
                                                          catalog_breaker, RetryPolicy(), headers))
+    from app.infrastructure.persistence.user_repositories import SqlAlchemyUserRepository
+    from app.infrastructure.security.passwords import Pbkdf2Hasher
+    from app.infrastructure.security.tokens import TokenService
+
     sessions = make_session_factory(os.getenv("DATABASE_URL", "sqlite:///./citymove.db"))
+    secret = os.getenv("JWT_SECRET")
+    if not secret:
+        raise RuntimeError("JWT_SECRET environment variable is required in production")
+    auth = AuthService(SqlAlchemyUserRepository(sessions), TokenService(secret), Pbkdf2Hasher())
+    auth.ensure_admin(os.getenv("ADMIN_USERNAME"), os.getenv("ADMIN_PASSWORD"))
     return Container(repository=SqlAlchemyReportRepository(sessions), territory=divipola,
                      catalog=catalog, analytics=DuckDBAnalytics(snapshot_dir="data/raw"),
-                     breakers=[divipola_breaker, catalog_breaker])
+                     breakers=[divipola_breaker, catalog_breaker], auth=auth)

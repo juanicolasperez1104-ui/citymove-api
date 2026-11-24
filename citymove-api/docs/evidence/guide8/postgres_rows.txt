@@ -1,0 +1,11 @@
+ id | username | role  
+----+----------+-------
+  1 | admin    | ADMIN
+  2 | maria    | USER
+(2 rows)
+
+ id |         title         | status 
+----+-----------------------+--------
+  1 | Pothole on Av. Boyaca | open
+(1 row)
+

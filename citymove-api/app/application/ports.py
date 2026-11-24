@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Protocol
 
 from app.domain.reports.model import Report
 from app.domain.territory.model import Municipality
@@ -23,3 +23,14 @@ class AnalyticsPort(ABC):
 
     @abstractmethod
     def reports_by_department(self) -> list[dict[str, Any]]: ...
+
+
+class PasswordHasher(Protocol):
+    def hash(self, password: str) -> str: ...
+    def verify(self, password: str, stored: str) -> bool: ...
+
+
+class TokenPort(Protocol):
+    ttl: int
+    def issue(self, user_id: int, username: str, role: str) -> str: ...
+    def decode(self, token: str) -> dict: ...

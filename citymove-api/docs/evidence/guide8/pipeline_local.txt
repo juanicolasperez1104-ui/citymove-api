@@ -1,0 +1,13 @@
+=== Stage 1 - Test ===
+
+Required test coverage of 85% reached. Total coverage: 94.51%
+71 passed in 2.60s
+
+=== Stage 2 - Build + smoke test ===
+container uid: 10001
+{"status":"ok","version":"1.0.0"}
+
+=== Stage 3 - Push (local registry stands in for Docker Hub) ===
+localhost:5000/citymove-api:cfd1d3b
+{"name":"citymove-api","tags":["cfd1d3b"]}
+

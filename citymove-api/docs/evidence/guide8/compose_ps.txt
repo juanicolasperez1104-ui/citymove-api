@@ -1,0 +1,11 @@
+$ docker compose ps
+NAME                 IMAGE                       STATUS                    PORTS
+citymove-api-api-1   local/citymove-api:latest   Up 48 seconds (healthy)   0.0.0.0:8000->8000/tcp
+citymove-api-db-1    postgres:16-alpine          Up 54 seconds (healthy)   5432/tcp
+
+$ docker compose exec api id
+uid=10001(app) gid=10001(app) groups=10001(app)
+
+$ docker inspect --format "{{.State.Health.Status}}" citymove-api-api-1 citymove-api-db-1
+/citymove-api-api-1 healthy
+/citymove-api-db-1 healthy
